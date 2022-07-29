@@ -1,0 +1,29 @@
+-----------------------Trabalho algoritmos 2-------------------------
+
+ Participe do sorteio da Mega Quadra! Ganha o jogo quem acerta se 
+4 números estão em um vetor de números aleatórios. 
+Se não acertar 4, quem sabe 3? Ou 2? Ou 1?
+Se não acertar nenhum, jogue de novo!
+  
+Quanto ao programa:
+-> programa recebe como parâmetro tamanho do vetor
+-> cria vetor (aleatório de 1 até o parametro dado)
+-> imprimir o vetor randomizado
+-> usuario coloca 4 numeros inteiros
+-> programa realiza pesquisa binária e sequencial para achar o 
+numero
+-> ordenar com select, bubble, quick (recursivo e iterativo com mediana)
+-> ordenações e pesquisas com numero de inspeções 
+-> informa quantos numeros foram acertados
+
+
+Quanto a página web
+-> relatório de como foi feito o trabalho e resultados obtidos
+-> listagem do programa em c ("nome_do_programa.c.txt")
+-> log dos testes (basicamente printf da maioria das coisas)
+
+---------------------------------------------------------------------
+24/07:
+	Listamos em tópicos os passos do trabalho e começamos a
+listagem de funções básicas para criação do vetor.
+
