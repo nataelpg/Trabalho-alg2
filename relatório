@@ -28,4 +28,5 @@ Quanto a página web
 listagem de funções básicas para criação do vetor.
 
 29/07:
-	Criamos o repositório e commitamos algumas alterações.
+	Criamos o repositório no git e criamos um algorítmo de busca
+binária iterativa com 3 condições. Pretendemos deixar duas apenas.
