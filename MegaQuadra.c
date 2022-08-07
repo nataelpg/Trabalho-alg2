@@ -2,10 +2,16 @@
 #include<stdlib.h>  
 #include<time.h>
 #define N 50
-
 void preencheVetor (int vet[], int tam, int maxVal) {
     for (int i =0; i < tam; i++)
         vet[i] =rand()%maxVal;
+}
+
+void imprimeVetor(int v[], int TAM){
+    int i;
+    for (i = 0; i < TAM; i++){
+        printf("%d ", v[i]);
+    }
 }
 
 void copiaVetor (int vetFonte[], int vetDestino[], int TAM) {
@@ -123,26 +129,42 @@ void bubbleSort (int v[], int TAM){ /* nao esquecer de passar n - 1 como paramet
 
 
 int main() {
-  
-    int  n1, n2, n3, n4, max;
-    printf ("Bem vindo à Mega Quadra! Aqui você pode dar 4 palpites e sair vitorioso, mas sera que voce consegue? Por favor, digite primeiro o valor maximo no vetor e depois suas apostas!");
-    scanf ("%d, %d, %d, %d, %d", &max, &n1, &n2, &n3, &n4);
-
-
     int* vet = malloc(N*sizeof(int));
     int* vetOrdenar = malloc(N*sizeof(int));
-    if (!vet) {
-        printf ("impossivel alocar memoria");
+    int  n1, n2, n3, n4, max;
+    
+    srand(time(0));
+    printf ("Bem vindo à Mega Quadra! Aqui você pode dar 4 palpites e sair vitorioso, mas sera que voce consegue? Por favor, digite primeiro o valor maximo no vetor e depois suas apostas!");
+    
+    scanf ("%d, %d, %d, %d, %d", &max, &n1, &n2, &n3, &n4);
+    preencheVetor(vet, N, max);
 
+    if (!vet) {
+        printf ("impossivel alocar memoria"); 
+        
         return 1;
     }
-    srand(time(0));
 
+    copiaVetor(vet, vetOrdenar, N-1);
+    printf("Ordenando com Selection Sort\n");
     selectionSort (vetOrdenar, N-1);
+    imprimeVetor(vetOrdenar, N-1);
+
+    copiaVetor(vet, vetOrdenar, N-1);
+    printf("Ordenando com Bubble Sort\n");
     bubbleSort (vetOrdenar, N-1);
+    imprimeVetor(vetOrdenar, N-1);
+
+    copiaVetor(vet, vetOrdenar, N-1);
+    printf("Ordenando com Quick Sort Recursivo\n");
     quickSort(vetOrdenar, 0, N-1);
+    imprimeVetor(vetOrdenar, N-1);
+
+    copiaVetor(vet, vetOrdenar, N-1);
+    printf("Ordenando com Quick Sort Iterativo\n");
     quickSortIterativo(vetOrdenar, 0, N - 1);
-    copiaVetor (vet, vetOrdenar, N);
+    imprimeVetor(vetOrdenar, N-1);
+
 
     free (vet);
     return 0;
