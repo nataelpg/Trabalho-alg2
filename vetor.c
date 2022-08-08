@@ -4,20 +4,12 @@
 #include <stdlib.h>
 #include <time.h>
 
-void preencheVetor(int vet[], int tam, int maxVal) {
-    char ja_consta;
-
-    for(int i = 0; i < tam; i++) {
-        vet[i] = rand() % maxVal + 1;
-        ja_consta = 'N';
-        for(int j = 0; j < i && ja_consta == 'N'; j++) {
-            if(vet[i] == vet[j])
-                ja_consta = 'S';
-        }
-        if(ja_consta == 'S')
-            i--;
-    }
+    /* recebe um valor maximo e preenche o vetor com elementos de valor menor ou igual do valor maximo */
+void preencheVetor (int vet[], int tam, int maxVal) {
+    for (int i =0; i < tam; i++)
+        vet[i] =rand()%maxVal+1;
 }
+
 
 void imprimeVetor(int v[], int TAM) {
     int i;
