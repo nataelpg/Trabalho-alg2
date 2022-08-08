@@ -26,12 +26,12 @@ Quanto a página web
 24/07:
 	Listamos em tópicos os passos do trabalho e começamos a
 listagem de funções básicas para criação do vetor.
-
 29/07:
 	Criamos o repositório e commitamos algumas alterações.
-
+30/09:
+	Inserido a pesquisa sequencial.
 02/08:
-	Inserido o algoritmo de quick sort recursivo.
+	Inserido o algoritmo de quick sort recursivo e iterativo.
 07/08:
-	Novos algoritmos inseridos (bubble, quick iterativo, selection, insert) + as pesquisas
-binárias e sequenciais.
+	Novos algoritmos inseridos (bubble, selection, insert) + as pesquisas
+binárias. Foi criado o site também.

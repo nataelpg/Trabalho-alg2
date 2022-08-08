@@ -10,6 +10,6 @@ void leApostas (int w[], int maxVal);
 Verifica se cada um dos 4 números escolhidos
 foram utilizados
 */
-int pontuacao (int v[], int w[], int tam);
+int pontuacao (int v[], int w[], int tam, int *comp);
 
 #endif

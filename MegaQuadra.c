@@ -16,11 +16,39 @@ void leApostas (int w[], int maxVal){
     }
 }
 
-int pontuacao (int v[], int w[], int tam){
+
+int pesqBinaria (int v[], int x, int n, int *comp){
+    int inicio = 0;
+    int fim = n;
+
+    while(inicio <= fim) {
+        int meio = ((inicio + fim) / 2);
+
+        if(x == v[meio]){
+            /* elemento foi encontrado */
+            comp[5]++;
+            return 1;
+        }
+        if(x < v[meio]) {
+            /* elemento esta na esquerda do meio */
+            comp[5]++;
+            fim = meio - 1;
+        }
+        else if(x > v[meio]){
+            /* elemento esta na direita do meio */
+            comp[5]++;
+            inicio = meio + 1;
+        }
+    }
+
+    return 0;
+}
+
+int pontuacao (int v[], int w[], int tam, int *comp){
     int pontos, i = 0;
     pontos = 0;
     while (i < 4){
-        if (pesqBinaria(v, w[i], tam)){
+        if (pesqBinaria(v, w[i], tam, comp)){
             pontos++;
         }
         i++;
@@ -85,11 +113,26 @@ void pivoMediana (int v[], int ini, int fim){
     troca(v, medIndice, fim);
 }
 
+
+int pesqSequencial(int v[], int x, int n, int *comp){
+    int i = 0;
+    while (v[i] != x && i < n){
+        i++;
+        comp[4]++;
+    }
+
+    if (v[i] == x)
+        return 1;
+    return 0;
+}
+
 /* coloca o pivo na posicao certa e deixa elementos menores que o pivo a sua esquerda e maiores a sua direita */
-int particionar (int v[], int ini, int fim){
+int particionar (int v[], int ini, int fim, int *comp){
     int pivo = v[fim];
     int i, m = ini;
     for (i = ini; i < fim; i++){
+        (*comp)++;
+        printf ("\ncomp de 2 %p\n", comp);
         if (v[i] <= pivo){
             troca (v, m, i);
             m++;
@@ -99,52 +142,20 @@ int particionar (int v[], int ini, int fim){
     return m;
 }
 
-int pesqSequencial(int v[], int x, int n){
-    int i = 0;
-    while (v[i] != x && i < n){
-        i++;
-    }
-
-    if (v[i] == x)
-        return 1;
-    return 0;
-}
-
-int pesqBinaria (int v[], int x, int n){
-    int inicio = 0;
-    int fim = n;
-
-    while(inicio <= fim) {
-        int meio = ((inicio + fim) / 2);
-
-        if(x == v[meio])
-            /* elemento foi encontrado */
-            return 1;
-        if(x < v[meio]) 
-            /* elemento esta na esquerda do meio */
-            fim = meio - 1;
-        else if(x > v[meio])
-            /* elemento esta na direita do meio */
-            inicio = meio + 1;
-    }
-
-    return 0;
-}
-
 /* compara os elementos com base em um pivo */
-void quickSort(int v[], int ini, int fim){
+void quickSort(int v[], int ini, int fim, int *comp){
 	if (ini>=fim)
 		return;
 		
 	// posPivo		
-	int m = particionar (v, ini, fim);
-	quickSort(v, ini, m-1);
-	quickSort (v, m+1, fim);
+	int m = particionar (v, ini, fim, &comp[2]);
+	quickSort(v, ini, m-1, comp);
+	quickSort (v, m+1, fim, comp);
 	
 	return;
 }
 
-void quickSortIterativo (int v[], int ini, int fim) {
+void quickSortIterativo (int v[], int ini, int fim, int *comp) {
 	int pilha[fim - ini + 1];
 	int topo = -1;
 	
@@ -155,7 +166,7 @@ void quickSortIterativo (int v[], int ini, int fim) {
 		fim = pilha[topo--];
 		ini = pilha[topo--];
 		
-		int m = particionar(v, ini, fim);
+		int m = particionar(v, ini, fim, comp);
 		if (m - 1 > ini){
 			pilha[++topo] = ini;
 			pilha[++topo] = m - 1;
@@ -168,11 +179,12 @@ void quickSortIterativo (int v[], int ini, int fim) {
 }
 
 /* percorre o vetor e a cada iteracao verifica o minimo */
-void selectionSort (int v[], int TAM){
+void selectionSort (int v[], int TAM, int *comp){
     int min, i, j;
     for (i = 0; i < TAM - 1; i++){
         min = i;
         for (j = i+1; j < TAM; j++){
+            comp[0]++;
             if (v[j] < v[min]){
                 min = j;
             }
@@ -183,10 +195,11 @@ void selectionSort (int v[], int TAM){
 }
 
 /* compara elemento por elemento do vetor e vai fazendo trocas ate o elemento chegar na posicao certa */
-void bubbleSort (int v[], int TAM){ /* nao esquecer de passar n - 1 como parametro e nao n para nao dar erro */
+void bubbleSort (int v[], int TAM, int *comp){ 
     int i, j;
     for (i = 1; i < TAM ; i++){
         for (j = TAM ; j >= i; j--){
+            comp[1]++;
             if (v[j] < v[j-1])
                 troca (v, j-1, j);
         }
@@ -197,16 +210,22 @@ void bubbleSort (int v[], int TAM){ /* nao esquecer de passar n - 1 como paramet
 
 int main() {
     int w[4];
-    int  n1, n2, n3, n4, max, N, moeda; /* variaveis de entrada */
-    int c1, c2, c3, c4, c5, c6; /* variaveis de comparacao */ 
+    int  max, N, moeda; /* variaveis de entrada */
+    int comp[6]; /* variaveis de comparacao */ 
+
+    for (int i = 0; i < 6; i++){
+        comp[i] = 0;
+    }
     
-    /* atualizacao da seed da funcao aleatoria para sempre gerar um vetor aleatorio novo */
+    /* variavel de controle para saber se a pessoa ainda quer jogar */
     moeda = 1;
     while (moeda == 1){
+        /* atualizacao da seed da funcao aleatoria para sempre gerar um vetor aleatorio novo */
         srand(time(0));
-        printf ("Bem vindo a Mega Quadra! Aqui você pode dar 4 palpites e sair vitorioso, mas sera que voce consegue? Para poder jogar primeiro insira o tamanho do vetor: ");
+        printf ("Bem vindo a Mega Quadra! Aqui você pode dar 4 palpites e talvez sair vitorioso, mas sera que voce consegue? Para poder jogar primeiro insira o tamanho do vetor: ");
         
         scanf ("%d", &N);
+        /* so aceita valores de tamanho */
         while (N < 4){
             printf ("\ntamanho invalido insira outro: ");
             scanf("%d", &N);
@@ -231,40 +250,50 @@ int main() {
             return 1;
         }
 
-        c1 = 0; c2 = 0; c3 = 0; c4 = 0; c5 = 0; c6 = 0;
+
+        printf ("\nVetor a ser ordenado: ");
+        imprimeVetor (vet, N);
 
         copiaVetor(vet, vetOrdenar, N);
-        printf("\nOrdenando com Selection Sort ");
-        selectionSort (vetOrdenar, N);
-        imprimeVetor(vetOrdenar, N);
+        selectionSort (vetOrdenar, N, comp);
+        
+        copiaVetor(vet, vetOrdenar, N);
+        bubbleSort (vetOrdenar, N-1, comp);
+        
+            printf("ponteiro de comp[0] %p", &comp[0]);
+    printf("ponteiro de comp[2] %p", &comp[2]);
 
         copiaVetor(vet, vetOrdenar, N);
-        printf("\nOrdenando com Bubble Sort ");
-        bubbleSort (vetOrdenar, N-1);
-        imprimeVetor(vetOrdenar, N);
+        quickSort(vetOrdenar, 0, N-1, comp);
 
         copiaVetor(vet, vetOrdenar, N);
-        printf("\nOrdenando com Quick Sort Recursivo ");
-        quickSort(vetOrdenar, 0, N-1);
-        imprimeVetor(vetOrdenar, N);
+        /*quickSortIterativo(vetOrdenar, 0, N-1, comp); */
+        
+        printf ("\nVetor ordenado: ");
+        imprimeVetor (vetOrdenar, N);
 
-        copiaVetor(vet, vetOrdenar, N);
-        printf("\nOrdenando com Quick Sort Iterativo ");
-        quickSortIterativo(vetOrdenar, 0, N - 1);
-        imprimeVetor(vetOrdenar, N);
+        pesqSequencial(vetOrdenar, max, N, comp);
+        pesqBinaria(vetOrdenar, max, N, comp); 
 
-        pesqSequencial(vetOrdenar, max, N);
-        pesqBinaria(vetOrdenar, max, N); 
+/* numero de comparacoes feita entre elementos do vetor */
+        printf ("\nNumero de comparacoes Selection Sort: %d", comp[0]);
+        printf ("\nNumero de comparacoes Bubble Sort: %d", comp[1]);
+        printf ("\nNumero de comparacoes Quick Sort Recursivo: %d", comp[2]);
+        printf ("\nNumero de comparacoes Quick Sort Iterativo: %d", comp[3]); 
+        printf ("\nNumero de comparacoes Pesquisa Sequencial: %d", comp[4]);
+        printf ("\nNumero de comparacoes Pesquisa Binaria: %d", comp[5]);
+        
+        
 
-        if (pontuacao (vetOrdenar, w, N) == 4)
-            printf ("\nparabens voce venceu o jogo, numero de acertos %d!", pontuacao(vetOrdenar, w, N));
+        if (pontuacao (vetOrdenar, w, N, comp) == 4)
+            printf ("\nparabens voce venceu o jogo, numero de acertos %d!", pontuacao(vetOrdenar, w, N, comp));
         else
-            printf ("\nnao foi dessa vez :(, numero de acertos %d", pontuacao(vetOrdenar, w, N)); 
+            printf ("\nNao foi dessa vez :( . Numero de acertos: %d", pontuacao(vetOrdenar, w, N, comp)); 
 
         free (vet);
         free (vetOrdenar);
 
-        printf ("\n\nVoce quer continuar jogando? 1 para sim, qualquer outro numero para nao.");
+        printf ("\n\nVoce quer continuar jogando? 1 se sim, qualquer outro numero se nao.");
         scanf("%d", &moeda);
     }
     return 0;
