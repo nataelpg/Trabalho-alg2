@@ -29,3 +29,9 @@ listagem de funções básicas para criação do vetor.
 
 29/07:
 	Criamos o repositório e commitamos algumas alterações.
+
+02/08:
+	Inserido o algoritmo de quick sort recursivo.
+07/08:
+	Novos algoritmos inseridos (bubble, quick iterativo, selection, insert) + as pesquisas
+binárias e sequenciais.
