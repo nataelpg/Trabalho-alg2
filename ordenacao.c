@@ -10,7 +10,6 @@ int particionar (int v[], int ini, int fim, int *comp){
     int i, m = ini;
     for (i = ini; i < fim; i++){
         (*comp)++;
-        printf ("\ncomp de 2 %p\n", comp);
         if (v[i] <= pivo){
             troca (v, m, i);
             m++;
@@ -39,12 +38,11 @@ void quickSortIterativo (int v[], int ini, int fim, int *comp) {
 	
 	pilha[++topo] = ini;
 	pilha[++topo] = fim;
-	
 	while (topo >= 0){
 		fim = pilha[topo--];
 		ini = pilha[topo--];
 		
-		int m = particionar(v, ini, fim, comp);
+		int m = particionar(v, ini, fim, &comp[3]);
 		if (m - 1 > ini){
 			pilha[++topo] = ini;
 			pilha[++topo] = m - 1;
