@@ -7,17 +7,16 @@
 #include "vetor.h"
 
 void leApostas(int w[], int maxVal) {
-    int i = 1;
-    int aux;
-    scanf("%d", &w[0]);
-    aux = w[0];
+    int aux, i;
+    aux = maxVal + 1;
+    i = 0;
 
     while(i < 4) {
         scanf("%d", &w[i]);
-        if(w[i] == aux) {
-            printf("Valor já inserido, tente outro");
-        } else if(w[i] > maxVal)
+        if(w[i] > maxVal) {
             printf("valor maior que o maximo, tente outro");
+        } else if(w[i] == aux)
+            printf("Valor já inserido, tente outro");
         else {
             aux = w[i];
             i++;
@@ -63,18 +62,22 @@ int main() {
         scanf("%d", &N);
         /* so aceita valores de tamanho */
         while(N < 4) {
-            printf("\ntamanho invalido insira outro: ");
+            printf("\ntamanho invalido, insira outro: ");
             scanf("%d", &N);
         }
 
         printf("\nAgora o valor maximo dos elementos: ");
-        printf("\nLendo elementos");
         scanf("%d", &max);
+        while(max < 4) {
+            printf("\nvalor max invalido, insira outro: ");
+            scanf("%d", &max);
+        }
+        printf("\nLendo elementos e criando vetor...");
 
         int* vet = malloc(N * sizeof(int));
         int* vetOrdenar = malloc(N * sizeof(int));
 
-        printf("Por fim as suas apostas: ");
+        printf("\nPor fim as suas apostas: ");
         leApostas(w, max);
 
         preencheVetor(vet, N, max);
@@ -126,8 +129,10 @@ int main() {
         free(vet);
         free(vetOrdenar);
 
-        printf("\n\nVoce quer continuar jogando? 1 se sim, qualquer outro numero se nao.");
+        printf("\n\nVoce quer continuar jogando? 1 se sim, qualquer outro numero caso contrario.");
         scanf("%d", &moeda);
     }
+
+    
     return 0;
 }
