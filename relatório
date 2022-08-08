@@ -26,7 +26,15 @@ Quanto a página web
 24/07:
 	Listamos em tópicos os passos do trabalho e começamos a
 listagem de funções básicas para criação do vetor.
-
 29/07:
-	Criamos o repositório no git e criamos um algorítmo de busca
-binária iterativa com 3 condições. Pretendemos deixar duas apenas.
+	Criamos o repositório e commitamos algumas alterações.
+30/09:
+	Inserido a pesquisa sequencial.
+02/08:
+	Inserido o algoritmo de quick sort recursivo e iterativo.
+06/08:
+	Novos algoritmos inseridos (bubble, selection, insert) + as pesquisas
+binárias. Foi criado o site também.
+07/08:
+	Implementado os números de comparações, também os logs com as mensagens e
+os dados que obtivemos com as comparações.

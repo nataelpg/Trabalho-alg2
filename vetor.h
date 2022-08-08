@@ -1,25 +1,31 @@
-#ifndef __VETOR__
-#define __VETOR__
+#ifndef _VETOR_H
+#define _VETOR_H
+
+/* 
+Recebe um valor maximo e preenche o vetor 
+com elementos de valor menor ou igual do valor maximo.
+*/
+void preencheVetor (int vet[], int tam, int maxVal);
+
+/* 
+Imprime todos os elementos de um vetor qualquer
+*/
+void imprimeVetor(int v[], int TAM);
 
 /*
-//Gera um vetor de 1 a 50, totalmente aleatório.
+Copia o vetor original para um a ser ordenado.
 */
-int* geraVetor(int* vetor, int elementos);
+void copiaVetor (int vetFonte[], int vetDestino[], int TAM);
 
 /*
-//Realiza a média do índice inicial, do meio e final.
-//Retorna o vetor com o primeiro elemento trocado com a mediana.  
+Compara tres elementos de um vetor,
+um do começo, meio e fim, e tira a mediana entre eles
 */
-int mediana(int* vetor, int inicio, int fim, int meio);
+void pivoMediana (int v[], int ini, int fim);
 
 /*
-//Imprime o vetor
+Troca o elemento a com o elemento b no vetor v.
 */
-void imprimeVetor(int* vetor, int inicio, int fim);
-
-/*
-//Destrói o vetor
-*/
-void destroiVetor(int* vetor, int fim);
+void troca (int v[], int a, int b);
 
 #endif
