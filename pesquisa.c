@@ -6,7 +6,7 @@
 #include "pesquisa.h"
 int pesqSequencial(int v[], int x, int n, int *comp){
     int i = 0;
-    while (v[i] != x && i < n){
+    while (v[i] != x && i < n-1){
         i++;
         comp[4]++;
     }
